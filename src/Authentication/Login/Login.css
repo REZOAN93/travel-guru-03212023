@@ -1,0 +1,39 @@
+#loginpage{
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 20px;
+}
+.login-form{
+    border: 1px solid grey;
+    background-color: white;
+    padding: 20px;
+    width: 350px;
+    height: 380px;
+}
+
+.Register-form{
+    border: 1px solid grey;
+    background-color: cornsilk;
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+    width: 480px;
+    height: 460px;
+  
+    
+    
+}
+
+#new-account{
+    text-align: center;
+    font-size: 12px;
+}
+
+.google-option{
+    width: 250px;
+    height: 10px;
+}
+#alredybackbtn{
+    padding-bottom: 20px;
+}

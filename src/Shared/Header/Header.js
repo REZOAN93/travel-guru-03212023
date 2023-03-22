@@ -7,6 +7,7 @@ import "./Header.css";
 import Form from "react-bootstrap/Form";
 import { Button, Image, InputGroup } from "react-bootstrap";
 import { BsSearch } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const emailIcon = <BsSearch />;
@@ -30,19 +31,21 @@ const Header = () => {
               />
             </Form>
 
-            <Nav.Link className="me-3" href="#deets">
-              News
+            <Nav.Link id="navlink" className="me-3" >
+             <Link to={'/'}> Home</Link>
             </Nav.Link>
-            <Nav.Link className="me-3" href="#deets">
+            <Nav.Link id="navlink" className="me-3" href="#deets">
               Destination
             </Nav.Link>
-            <Nav.Link className="me-3" href="#deets">
+            <Nav.Link id="navlink" className="me-3" href="#deets">
               Blog
             </Nav.Link>
-            <Nav.Link href="#deets">Contact</Nav.Link>
+            <Nav.Link id="navlink" href="#deets">
+              Contact
+            </Nav.Link>
           </Nav>
           <Nav>
-            <Button variant="outline-success">Login</Button>
+            <Link to={"/login"}>Login</Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

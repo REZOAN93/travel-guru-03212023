@@ -1,0 +1,19 @@
+#start-booking{
+    text-decoration: none;
+    color: black;
+}
+#booking-link{
+    background-color: goldenrod;
+    border: 1px solid gold;
+    text-align: center;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    width: 90%;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.booking-form{
+    background-color: azure;
+    padding: 30px;
+}

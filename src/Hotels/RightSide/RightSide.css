@@ -1,0 +1,18 @@
+
+#hotel-sumary{
+    width: 400px;
+    height: 400px;
+    margin: auto;
+    margin-bottom: 8px;
+    
+
+ }
+ #hotellinks{
+    text-decoration: none;
+    color: black;
+    font-size: 25px;
+    font-weight: 400;
+ }
+ #caption{
+    text-align: left;
+ }

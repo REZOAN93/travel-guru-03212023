@@ -6,14 +6,15 @@ import Header from "../../Shared/Header/Header";
 import "./Main.css";
 import { Outlet } from "react-router-dom";
 import Coxbazar from "../../Hotels/Coxbazar/Coxbazar";
+import LeftSide from "../../Hotels/LeftSide/LeftSide";
 
 const Main = () => {
   return (
-    <div className="bodypage">
+    <div>
       <Header></Header>
-      <Coxbazar>
+      <Container fluid>
         <Outlet></Outlet>
-      </Coxbazar>
+      </Container>
     </div>
   );
 };

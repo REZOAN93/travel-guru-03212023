@@ -1,0 +1,22 @@
+#bookinglink{
+    text-decoration: none;
+    color: black;
+    border: 1px solid goldenrod;
+    padding: 4px;
+    padding-bottom: 5px;
+    padding-right: 20px;
+    border-radius: 10px;
+}
+#bookinglink:hover{
+    background-color: goldenrod;
+    color: white;
+}
+.leftside{
+    text-align: justify;
+}
+#headertext{
+    font-family: Bebas Neue;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 27.6842px;
+}
