@@ -5,6 +5,7 @@ import Coxbazar from "../Hotels/Coxbazar/Coxbazar";
 import RightSide from "../Hotels/RightSide/RightSide";
 import StartBooking from "../Hotels/StartBooking/StartBooking";
 import Main from "../Layout/Main/Main";
+import RequireAuth from "../PrivateRoute/RequireAuth";
 import BookingPage from "../Shared/BookingPage/BookingPage";
 
 export const router = createBrowserRouter([
@@ -36,7 +37,12 @@ export const router = createBrowserRouter([
       },
       {
         path: "/bookingpage",
-        element: <BookingPage />,
+        element: (
+          <RequireAuth>
+            <BookingPage />
+          </RequireAuth>
+        ),
+        loader: () => fetch(`http://localhost:5000/room`),
       },
     ],
   },

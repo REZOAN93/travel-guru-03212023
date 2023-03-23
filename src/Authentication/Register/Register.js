@@ -1,12 +1,39 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthProvider";
 
 const Register = () => {
+  const { createuserwithEmail } = useContext(AuthContext);
+  const [error,setError]=useState('');
+
+  const handleCreateuser = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email, password);
+    createuserwithEmail(email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        // ...
+        form.reset();
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setError(errorMessage)
+        // ..
+      });
+  };
   return (
     <div>
-      <Form className="m-auto mt-1 Register-form mb-3 ">
+      <Form
+        onSubmit={handleCreateuser}
+        className="m-auto mt-1 Register-form mb-3 "
+      >
         <p id="loginpage">Register Here !</p>
         <Form.Group className="mb-0.5" controlId="formBasicEmail">
           <Form.Label>First Name</Form.Label>
@@ -18,12 +45,16 @@ const Register = () => {
         </Form.Group>
         <Form.Group className="mb-0.5" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" />
+          <Form.Control type="email" name="email" placeholder="Enter email" />
         </Form.Group>
 
         <Form.Group className="mb-1" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" />
+          <Form.Control
+            type="password"
+            name="password"
+            placeholder="Password"
+          />
         </Form.Group>
         <Form.Group
           className="d-flex justify-content-between mb-none"
@@ -32,9 +63,11 @@ const Register = () => {
           <Form.Check type="checkbox" label="Remember me" />
           <Link>Forget Password</Link>
         </Form.Group>
-        <div id="booking-link">
-          <Link id="start-booking">Create an Account</Link>
-        </div>
+        <>{error}</>
+        <Button className="w-100" variant="primary" type="submit">
+          Register
+        </Button>
+
         <div id="new-account">
           <p id="alredybackbtn">
             Already have an Account? <Link to={"/login"}>Login</Link>
