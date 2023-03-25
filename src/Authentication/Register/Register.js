@@ -3,11 +3,23 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
+import toast, { Toaster } from 'react-hot-toast';
 
 const Register = () => {
-  const { createuserwithEmail } = useContext(AuthContext);
-  const [error,setError]=useState('');
+  const { createuserwithEmail, emailVerify } = useContext(AuthContext);
+  const [error, setError] = useState("");
+  const [accepted, setAccepted] = useState(false);
 
+  const handlechckBOx = (event) => {
+    setAccepted(event.target.checked);
+  };
+
+  const emailVerification = () => {
+    emailVerify().then(() => {
+      // Email verification sent!
+      // ...
+    });
+  };
   const handleCreateuser = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -20,11 +32,13 @@ const Register = () => {
         const user = userCredential.user;
         // ...
         form.reset();
+        emailVerification(); 
+        toast.success("Please Verify Your Email!");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        setError(errorMessage)
+        setError(errorMessage);
         // ..
       });
   };
@@ -60,11 +74,20 @@ const Register = () => {
           className="d-flex justify-content-between mb-none"
           controlId="formBasicCheckbox"
         >
-          <Form.Check type="checkbox" label="Remember me" />
-          <Link>Forget Password</Link>
+          <Form.Check
+            type="checkbox"
+            onClick={handlechckBOx}
+            label="Agree with term & Condition"
+          />
+          <Link to={`/term&Condition`}>Term & Condition</Link>
         </Form.Group>
         <>{error}</>
-        <Button className="w-100" variant="primary" type="submit">
+        <Button
+          className="w-100"
+          variant="primary"
+          disabled={!accepted}
+          type="submit"
+        >
           Register
         </Button>
 

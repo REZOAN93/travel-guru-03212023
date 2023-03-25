@@ -10,6 +10,7 @@ import { BsSearch } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 import { signOut } from "firebase/auth";
+import { FcBusinessman } from "react-icons/fc";
 
 const Header = () => {
   const { user, usersignout } = useContext(AuthContext);
@@ -17,7 +18,7 @@ const Header = () => {
   const handleSignOut = () => {
     usersignout();
   };
-  
+
   return (
     <Navbar collapseOnSelect expand="lg" variant="light">
       <Container>
@@ -53,7 +54,14 @@ const Header = () => {
           </Nav>
           <Nav>
             <Nav.Link id="navlink" className="me-3" href="#deets">
-              {user.displayName}
+              <Link to={'/userDetails'}>{user.email}</Link>
+              {user.email ? (
+                <>{user.name}</>
+              ) : (
+                <>
+                  <FcBusinessman />
+                </>
+              )}
             </Nav.Link>
             {user.email ? (
               <>

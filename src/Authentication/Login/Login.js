@@ -2,6 +2,7 @@ import { GoogleAuthProvider } from "firebase/auth";
 import React, { useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 import "./Login.css";
@@ -12,8 +13,13 @@ const Login = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const location = useLocation();
+  const [accepted, setAccepted] = useState(false);
 
-  const from = location.state.from.pathname || "/";
+  const handlecheckbox = (event) => {
+    setAccepted(event.target.checked);
+  };
+
+  const from = location?.state?.from?.pathname || "/";
 
   const handleSignin = (event) => {
     event.preventDefault();
@@ -26,7 +32,11 @@ const Login = () => {
         const user = userCredential.user;
         // ...
         form.reset();
-        navigate(from, { replace: true });
+        if (user.emailVerified) {
+          navigate(from, { replace: true });
+        } else {
+          toast.success("Please verify your Email First");
+        }
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -79,11 +89,20 @@ const Login = () => {
           className="mb-3 d-flex justify-content-between"
           controlId="formBasicCheckbox"
         >
-          <Form.Check type="checkbox" label="Remember me" />
+          <Form.Check
+            type="checkbox"
+            onClick={handlecheckbox}
+            label="Remember me"
+          />
           <Link>Forget Password</Link>
         </Form.Group>
         <>{error}</>
-        <Button className="w-100" variant="primary" type="submit">
+        <Button
+          className="w-100"
+          variant="primary"
+          disabled={!accepted}
+          type="submit"
+        >
           Login
         </Button>
 

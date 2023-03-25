@@ -3,9 +3,11 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  sendEmailVerification,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import app from "../Firebase/firebaseinit";
 
@@ -19,22 +21,32 @@ const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const usersignin=(email, password)=>{
-    return signInWithEmailAndPassword(auth, email, password)
-  }
+  const emailVerify = () => {
+    return sendEmailVerification(auth.currentUser);
+  };
+
+  const usersignin = (email, password) => {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const updateuser = (profile) => {
+    return updateProfile(auth.currentUser, profile);
+  };
 
   const googleAuth = (provider) => {
     return signInWithPopup(auth, provider);
   };
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
+    onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
+        const uid = currentUser.uid;
         // ...
-        setUser(user);
+        if (currentUser.emailVerified) {
+          setUser(currentUser);
+        }
       } else {
         // User is signed out
         // ...
@@ -53,7 +65,15 @@ const AuthProvider = ({ children }) => {
       });
   };
 
-  const authinfo = { user, googleAuth, usersignout, createuserwithEmail,usersignin };
+  const authinfo = {
+    user,
+    googleAuth,
+    usersignout,
+    createuserwithEmail,
+    usersignin,
+    updateuser,
+    emailVerify
+  };
   return (
     <AuthContext.Provider value={authinfo}>{children}</AuthContext.Provider>
   );

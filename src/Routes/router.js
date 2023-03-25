@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import Login from "../Authentication/Login/Login";
 import Register from "../Authentication/Register/Register";
+import TermCondition from "../Authentication/term&Condition/TermCondition";
+import UserData from "../Authentication/User/UserData";
 import Coxbazar from "../Hotels/Coxbazar/Coxbazar";
 import RightSide from "../Hotels/RightSide/RightSide";
 import StartBooking from "../Hotels/StartBooking/StartBooking";
@@ -43,6 +45,18 @@ export const router = createBrowserRouter([
           </RequireAuth>
         ),
         loader: () => fetch(`http://localhost:5000/room`),
+      },
+      {
+        path: "/term&Condition",
+        element: <TermCondition></TermCondition>,
+      },
+      {
+        path: "/userDetails",
+        element: (
+          <RequireAuth>
+            <UserData></UserData>
+          </RequireAuth>
+        ),
       },
     ],
   },
